@@ -8,7 +8,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' tokens <- authMoveIt("someurl.com", "auth=grant_type=password&username=USERNAME&password=PASSWORD")
+#' tokens <- authMoveIt("someurl.com", "grant_type=password&username=USERNAME&password=PASSWORD")
 #' }
 authMoveIt <- function(baseUrl, payload) {
   # Check function dependancies
@@ -19,7 +19,7 @@ authMoveIt <- function(baseUrl, payload) {
   # Build URL
   url <- paste0("https://moveit.", baseUrl, "/api/v1/token")
   # Post Auth
-  g <- httr::POST(url, body = payload)
+  g <- httr::POST(url, body = payload, httr::add_headers('Content-Type' = 'application/json'))
   # Get tokens
   tokens <- httr::content(g)
   # Return auth token list
@@ -160,7 +160,7 @@ availableFiles <- function(baseUrl, tokens) {
 #'
 #' @examples
 #' \dontrun{
-#' folders <- availableFiles("someurl.com", tokens)
+#' folders <- availableFolders("someurl.com", tokens)
 #' }
 availableFolders <- function(baseUrl, tokens) {
   # Check dependancies
