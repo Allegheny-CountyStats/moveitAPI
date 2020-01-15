@@ -17,7 +17,7 @@ authMoveIt <- function(baseUrl, payload) {
          call. = FALSE)
   }
   # Build URL
-  url <- paste0("https://moveit.", baseUrl, ".us/api/v1/token")
+  url <- paste0("https://moveit.", baseUrl, "/api/v1/token")
   # Post Auth
   g <- httr::POST(url, body = payload)
   # Get tokens
