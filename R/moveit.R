@@ -51,7 +51,6 @@ readMoveItFile <- function(baseUrl, tokens, id, fileType = "csv") {
       stop("Package \"readr\" needed for this function to work. Please install it.",
            call. = FALSE)
     }
-    data <- readr::read_csv(tmp)
   } else if (fileType == "excel") {
     if (!requireNamespace("readxl", quietly = TRUE)) {
       stop("Package \"readxl\" needed for this function to work. Please install it.",
