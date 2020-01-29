@@ -225,6 +225,7 @@ availableFolders <- function(baseUrl, tokens) {
 #' @param folderId ID for destination folder
 #' @param filePath Path to file for upload
 #' @param fileType POST file type ie "text/csv"
+#' @param chunked TRUE or FALSE value, TRUE forces chunked upload. Function will automatically chunk if file is too big
 #'
 #' @return POST content
 #' @export
@@ -233,7 +234,7 @@ availableFolders <- function(baseUrl, tokens) {
 #' \dontrun{
 #' uploadMoveItFile("someurl.com", tokens, 2346247, "some.csv", "text/csv")
 #' }
-uploadMoveItFile <- function(baseUrl, tokens, folderId, filePath, fileType) {
+uploadMoveItFile <- function(baseUrl, tokens, folderId, filePath, fileType, chunked=FALSE) {
   # Check dependency
   if (!requireNamespace("httr", quietly = TRUE)) {
     stop("Package \"httr\" needed for this function to work. Please install it.",
@@ -246,11 +247,26 @@ uploadMoveItFile <- function(baseUrl, tokens, folderId, filePath, fileType) {
   # Build URL
   url <- paste0("https://moveit.", baseUrl, "/api/v1/folders/", folderId, "/files")
 
-  # Send Request
-  httr::POST(url = url,
-             httr::add_headers(Authorization = token,
-                               accept = "application/json",
-                               `Content-Type` = "multipart/form-data"),
-             body = list(file =  httr::upload_file(filePath, fileType))
-             )
+  size <- file.size(filePath)
+
+  if (size >= 40000000 | chunked) {
+    # Send Request
+    return <- httr::POST(url = url,
+               httr::add_headers(Authorization = token,
+                                 accept = "application/json",
+                                 `Content-Type` = "multipart/form-data",
+                                 `Transfer-Encoding` = "chunked"),
+               body = list(file =  httr::upload_file(filePath, fileType))
+               )
+  } else {
+    return <- httr::POST(url = url,
+                         httr::add_headers(Authorization = token,
+                                           accept = "application/json",
+                                           `Content-Type` = "multipart/form-data"),
+                         body = list(file =  httr::upload_file(filePath, fileType))
+    )
+  }
+  if (!return$status_code %in% c(201, 200)) {
+    stop(return$status_code)
+  }
 }
