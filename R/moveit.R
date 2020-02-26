@@ -64,9 +64,14 @@ readMoveItFile <- function(baseUrl, tokens, id, fileType = "csv") {
   # Build file URL
   url <- paste0("https://moveit.", baseUrl, "/api/v1/files/", id, "/download")
   # Request
+  if (fileType == "excel") {
+    cType <- "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+  } else {
+    cType  <- "text/csv"
+  }
   g <- httr::GET(url,
                  httr::add_headers(Authorization = paste("Bearer", token)),
-                 httr::content_type("text/csv"),
+                 httr::content_type(cType),
                  httr::write_disk(tmp))
 
   # Read tmp file by file type
