@@ -245,6 +245,10 @@ uploadMoveItFile <- function(baseUrl, tokens, folderId, filePath, fileType, chun
     stop("Package \"httr\" needed for this function to work. Please install it.",
          call. = FALSE)
   }
+  # Fix Chunked on Linux
+  if(missing(chunked)) {
+    chunked <- FALSE
+  }
 
   # Load Auth token
   token <- paste("Bearer", tokens$access_token)
