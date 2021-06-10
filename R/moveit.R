@@ -279,3 +279,40 @@ uploadMoveItFile <- function(baseUrl, tokens, folderId, filePath, fileType, chun
     stop(return$status_code)
   }
 }
+
+#' Download file to move it server
+#'
+#' @param baseUrl Base URL for Move It server
+#' @param tokens List of auth tokens for MoveIt access
+#' @param id File ID
+#' @param outfile Path to file for upload
+#' @param fileType POST file type ie "text/csv"
+#'
+#' @return POST content
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' uploadMoveItFile("someurl.com", tokens, 2346247, "some.csv", "text/csv")
+#' }
+downloadMoveItFile <- function(baseUrl, tokens, id, outfile, fileType = "csv") {
+  # Check function dependancies
+  if (!requireNamespace("httr", quietly = TRUE)) {
+    stop("Package \"httr\" needed for this function to work. Please install it.",
+         call. = FALSE)
+  }
+
+  token <- tokens$access_token
+  # Build file URL
+  url <- paste0("https://moveit.", baseUrl, "/api/v1/files/", id, "/download")
+  # Request
+  if (fileType == "excel") {
+    cType <- "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+  } else {
+    cType  <- "text/csv"
+  }
+  g <- httr::GET(url,
+                 httr::add_headers(Authorization = paste("Bearer", token)),
+                 httr::content_type(cType),
+                 httr::write_disk(filename))
+}
