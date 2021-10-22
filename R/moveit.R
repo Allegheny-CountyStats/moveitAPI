@@ -316,5 +316,5 @@ downloadMoveItFile <- function(baseUrl, tokens, id, outfile, fileType = "csv") {
   g <- httr::GET(url,
                  httr::add_headers(Authorization = paste("Bearer", token)),
                  httr::content_type(cType),
-                 httr::write_disk(filename))
+                 httr::write_disk(outfile))
 }
