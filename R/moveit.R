@@ -40,7 +40,7 @@ authMoveIt <- function(baseUrl, payload) {
 #' \dontrun{
 #' df <- readMoveItFile("someurl.com", 626235843, tokens, "csv")
 #' }
-readMoveItFile <- function(baseUrl, tokens, id, fileType = "csv") {
+readMoveItFile <- function(baseUrl, tokens, id, fileType = "csv", sheet_download = NULL) {
   # Check function dependancies
   if (!requireNamespace("httr", quietly = TRUE)) {
     stop("Package \"httr\" needed for this function to work. Please install it.",
@@ -80,7 +80,7 @@ readMoveItFile <- function(baseUrl, tokens, id, fileType = "csv") {
   } else if (fileType == "txt") {
     data <- readr::read_tsv(tmp, guess_max = 5000)
   } else if (fileType == "excel") {
-    data <- readxl::read_excel(tmp)
+    data <- readxl::read_excel(tmp, sheet = sheet_download)
   }
   # Delete Temp File
   file.remove(tmp)
