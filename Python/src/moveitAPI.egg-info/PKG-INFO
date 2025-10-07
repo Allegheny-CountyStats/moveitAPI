@@ -1,0 +1,21 @@
+Metadata-Version: 2.1
+Name: moveitAPI
+Version: 0.0.1
+Summary: Package to access MoveIT server through API calls
+Author-email: Daniel Andrus <Daniel.Andrus@AlleghenyCounty.us>
+Project-URL: Homepage, https://github.com/Allegheny-CountyStats/moveitAPI/
+Project-URL: Issues, https://github.com/Allegheny-CountyStats/moveitAPI/issues
+Classifier: Development Status :: 1 - Planning
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.10
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: OS Independent
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Natural Language :: English
+Classifier: Topic :: Software Development :: Bug Tracking
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
