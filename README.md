@@ -3,7 +3,7 @@
 [MOVEit API Docs](https://docs.ipswitch.com/MOVEit/Transfer2019_1/API/Rest/#_overview)
 
 ### Installation
-`pack::pak("Allegheny-CountyStats/moveitAPI")`
+`pak::pak("Allegheny-CountyStats/moveitAPI")`
 
 ### Authentication
 
