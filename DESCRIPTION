@@ -1,7 +1,7 @@
 Package: moveitAPI
 Type: Package
 Title: MOVEit R API
-Version: 0.1.0
+Version: 0.3.1
 Author: Geoffrey Arnold
 Maintainer: Geoffrey Arnold <geoffrey.lloyd.arnold@gmail.com>
 Description: A package for communicating with, including downloading and uploading files from the Ipswitch Inc. MOVEit API.

@@ -76,9 +76,9 @@ readMoveItFile <- function(baseUrl, tokens, id, fileType = "csv", sheet_download
 
   # Read tmp file by file type
   if (fileType == "csv") {
-    data <- readr::read_csv(tmp, guess_max = 5000)
+    data <- readr::read_csv(tmp, guess_max = 50000)
   } else if (fileType == "txt") {
-    data <- readr::read_tsv(tmp, guess_max = 5000)
+    data <- readr::read_tsv(tmp, guess_max = 50000)
   } else if (fileType == "excel") {
     data <- readxl::read_excel(tmp, sheet = sheet_download)
   }
